@@ -1,10 +1,6 @@
-const {
-  handleEvents,
-} = require('spock-etl/lib/core/processors/transformers/common');
-const {
-  getExtractorName,
-} = require('spock-etl/lib/core/processors/extractors/instances/rawEventDataExtractor');
-const { getLogger } = require('spock-etl/lib/core/utils/logger');
+const { getExtractorName } = require("@oasisdex/spock-utils/dist/extractors/rawEventDataExtractor");
+const { handleEvents } = require("@oasisdex/spock-utils/dist/transformers/common");
+const { getLogger } = require('@oasisdex/spock-etl/dist/utils/logger');
 const BigNumber = require('bignumber.js').BigNumber;
 
 // @ts-ignore
@@ -14,20 +10,20 @@ const logger = getLogger('Polling');
 
 const authorizedCreators = process.env.AUTHORIZED_CREATORS
   ? process.env.AUTHORIZED_CREATORS.split(',').map((creator) =>
-      creator.toLowerCase(),
-    )
+    creator.toLowerCase(),
+  )
   : [];
 
 // TODO
 module.exports.VOTING_CONTRACT_GOERLI_ADDRESS =
-  '0x9C2BF9875E41523139cfEC07e35Ef5Be2c3942c3';
+  '0x2F82f408868D0CDe62E6d367Efc285f2a0a1fba9';
 module.exports.VOTING_CONTRACT_ADDRESS =
   '0xF9be8F0945acDdeeDaA64DFCA5Fe9629D0CF8E5D';
 
 module.exports.default = (address) => ({
   name:
     address === module.exports.VOTING_CONTRACT_ADDRESS ||
-    address === module.exports.VOTING_CONTRACT_GOERLI_ADDRESS
+      address === module.exports.VOTING_CONTRACT_GOERLI_ADDRESS
       ? `Polling_Transformer`
       : `Polling_Transformer_${address}`,
   dependencies: [getExtractorName(address)],
@@ -40,10 +36,10 @@ const handlers = {
   async PollCreated(services, info) {
     if (
       info.event.address.toLowerCase() !==
-        module.exports.VOTING_CONTRACT_ADDRESS.toLowerCase() &&
+      module.exports.VOTING_CONTRACT_ADDRESS.toLowerCase() &&
       // goerli uses batch polling contract for creating polls
       info.event.address.toLowerCase() !==
-        module.exports.VOTING_CONTRACT_GOERLI_ADDRESS.toLowerCase()
+      module.exports.VOTING_CONTRACT_GOERLI_ADDRESS.toLowerCase()
     ) {
       logger.info(
         `Ignoring PollCreated event because ${info.event.address} is not the primary voting contract`,
@@ -95,10 +91,10 @@ const handlers = {
   async PollWithdrawn(services, info) {
     if (
       info.event.address.toLowerCase() !==
-        module.exports.VOTING_CONTRACT_ADDRESS.toLowerCase() &&
+      module.exports.VOTING_CONTRACT_ADDRESS.toLowerCase() &&
       // goerli uses batch polling contract for withdrawing polls
       info.event.address.toLowerCase() !==
-        module.exports.VOTING_CONTRACT_GOERLI_ADDRESS.toLowerCase()
+      module.exports.VOTING_CONTRACT_GOERLI_ADDRESS.toLowerCase()
     ) {
       logger.info(
         `Ignoring PollWithdrawn event because ${info.event.address} is not the primary voting contract`,

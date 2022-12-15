@@ -1,10 +1,10 @@
 const {
   getExtractorName,
-} = require("spock-etl/lib/core/processors/extractors/instances/rawEventDataExtractor");
-const { handleDsNoteEvents } = require("spock-etl/lib/core/processors/transformers/common");
+} = require("@oasisdex/spock-utils/dist/extractors/rawEventDataExtractor");
+const { handleDsNoteEvents } = require("@oasisdex/spock-utils/dist/transformers/common");
 // @ts-ignore
 const dsChiefAbi = require("../abis/ds_chief.json");
-const { getTxByIdOrDie } = require("spock-etl/lib/core/processors/extractors/common");
+const { getTxByIdOrDie } = require("@oasisdex/spock-utils/dist/extractors/common");
 const BigNumber = require("bignumber.js").BigNumber;
 
 const LockTopic = `0x625fed9875dada8643f2418b838ae0bc78d9a148a18eee4ee1979ff0f3f5d427`;

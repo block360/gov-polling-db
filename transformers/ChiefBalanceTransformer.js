@@ -1,10 +1,9 @@
 const {
   getExtractorName,
-} = require("spock-etl/lib/core/processors/extractors//instances/rawEventDataExtractor");
+} = require("@oasisdex/spock-utils/dist/extractors/rawEventDataExtractor");
 const {
   handleDsNoteEvents,
-} = require("spock-etl/lib/core/processors/transformers/common");
-const { getLogger } = require("spock-etl/lib/core/utils/logger");
+} = require("@oasisdex/spock-utils/dist/transformers/common");
 const BigNumber = require("bignumber.js").BigNumber;
 // @ts-ignore
 const dsChiefAbi = require("../abis/ds_chief.json");

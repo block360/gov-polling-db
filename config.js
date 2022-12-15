@@ -1,6 +1,7 @@
 const {
   makeRawLogExtractors,
-} = require('spock-etl/lib/core/processors/extractors/instances/rawEventDataExtractor')
+} = require('@oasisdex/spock-utils/dist/extractors/rawEventDataExtractor')
+
 require('dotenv-flow').config()
 
 const mkrTransformer = require('./transformers/MkrTransformer')
@@ -31,15 +32,15 @@ const VOTE_DELEGATE_FACTORY_ADDRESS =
 //goerli
 // note: there is no v1 of DSCHIEF or VOTE_PROXY_FACTORY deployed to goerli, only the newer versions
 // Update pollingTransformerImport.VOTING_CONTRACT_GOERLI_ADDRESS 
-const MKR_GOERLI_ADDRESS = '0xc4Ea8cE98436B58cc51F7D2d501e27dbbA0066f2'
+const MKR_GOERLI_ADDRESS = '0x66076a3CA93Da5A2E134852C4f2aDd26531b8bB2'
 const BATCH_VOTING_CONTRACT_GOERLI_ADDRESS =
-  '0x9C2BF9875E41523139cfEC07e35Ef5Be2c3942c3'
-const ESM_V2_ADDRESS_GOERLI = '0xaeecfF82e82765b0e24B9CE189FfdD073843b8f1'
-const DSCHIEF_12_GOERLI_ADDRESS = '0xB119ee188aF24b78f30f2A42280f94f73d2Bdcb5'
+  '0x2F82f408868D0CDe62E6d367Efc285f2a0a1fba9'
+const ESM_V2_ADDRESS_GOERLI = '0x8bdD5f418E64Ec0D507034C74A892DDF5CA1270a'
+const DSCHIEF_12_GOERLI_ADDRESS = '0xD4bf8D5BB06Ce0c11fD861786442E06E7370139F'
 const VOTE_PROXY_FACTORY_12_GOERLI_ADDRESS =
-  '0x2c6a8bC9F03DeE6200E29c99a8678585370a2c92'
+  '0xF283dc19A36d22968cFfBDD1F575432e90341392'
 const VOTE_DELEGATE_FACTORY_GOERLI_ADDRESS =
-  '0xa0651aCaA384ec105B91FEc3e2aa21021bac8120'
+  '0xEdcD644f03A54D2113eedfED5159D2B73cb9b434'
 
 const goerli = {
   startingBlock: parseInt(process.env.GENESIS),
@@ -67,15 +68,23 @@ const goerli = {
     mkr: './migrations',
   },
   api: {
+    port: 3003,
     whitelisting: {
       enabled: true,
       whitelistedQueriesDir: "./queries",
     },
     responseCaching: {
-      enabled: false,
+      enabled: true,
       duration: '15 seconds',
     }
   },
+  onStart: async services => {
+    return;
+  },
+  statsWorker: {
+    enabled: true,
+    interval: 10
+  }
 }
 
 const mainnet = {

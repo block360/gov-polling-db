@@ -5,17 +5,24 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start-etl": "node -r ./loadenv.js ./node_modules/spock-etl/lib/core/runner.js etl ./config.js",
+    "start-etl": "node -r ./loadenv.js ./node_modules/@oasisdex/spock-etl/dist/bin/etl.js ./config.js",
     "start-sync": "yarn migrate",
-    "migrate": "node -r ./loadenv.js ./node_modules/spock-etl/lib/core/runner.js migrate ./config.js",
-    "start-api": "node -r ./loadenv.js ./node_modules/spock-etl/lib/core/runner.js api ./config.js",
+    "migrate": "node -r ./loadenv.js ./node_modules/@oasisdex/spock-etl/dist/bin/migrate.js ./config.js",
+    "start-api": "node -r ./loadenv.js ./node_modules/@oasisdex/spock-graphql-api/dist/index.js ./config.js",
     "test": "jest",
     "test:ci": "./tests/run-tests.sh",
     "repl": "node --experimental-repl-await -r ./loadenv.js ./repl"
   },
   "dependencies": {
+    "@oasisdex/spock-etl": "^0.1.5",
+    "@oasisdex/spock-graphql-api": "^0.1.2",
+    "@oasisdex/spock-test-utils": "^0.1.1",
+    "@oasisdex/spock-utils": "^0.1.0",
+    "@oasisdex/spock-validation": "^0.1.0",
     "dotenv-flow": "^2.0.0",
-    "spock-etl": "^0.0.63"
+    "ethers": "krzkaczor/ethers.js#kk/get-logs-multiple-address-build",
+    "consola": "^2.15.3"
+
   },
   "devDependencies": {
     "graphql-request": "^1.8.2",
